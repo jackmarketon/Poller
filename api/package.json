@@ -1,0 +1,39 @@
+{
+  "name": "poller-api",
+  "version": "0.1.0",
+  "description": "pollerApi web app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node --harmony-generators `which gulp`",
+    "test": "node --harmony `which gulp` test"
+  },
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "koa-static": "latest",
+    "koa": "latest",
+    "koa-jsonp": "latest",
+    "koa-route": "latest",
+    "koa-logger": "latest",
+    "co-views": "latest",
+    "co-body": "latest",
+    "co-monk": "latest",
+    "monk": "0.8.0",
+    "koa-session": "latest",
+    "ejs": "latest",
+    "koa-cors": "0.0.13"
+  },
+  "devDependencies": {
+    "bower": "latest",
+    "co": "^3.0.6",
+    "gulp": "latest",
+    "gulp-mocha": "latest",
+    "gulp-mocha-co": "^0.4.1-co.3",
+    "gulp-nodemon": "latest",
+    "gulp-plumber": "^0.6.5",
+    "gulp-watch": "0.7.1",
+    "mocha": "latest",
+    "should": "^3.3.1",
+    "supertest": "^0.12.1"
+  }
+}
