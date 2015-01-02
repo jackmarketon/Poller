@@ -44,11 +44,11 @@ route.record = function(routeInfo){
 
 route.record({ method: 'GET' , path: '/' });
 /* client */
-route.record({ method: 'GET' , path: '/api/client' });
-route.record({ method: 'GET' , path: '/api/client/:id' });
-route.record({ method: 'POST' , path: '/api/client' });
-route.record({ method: 'PUT' , path: '/api/client/:id' });
-route.record({ method: 'DELETE' , path: '/api/client/:id' });
+route.record({ method: 'GET' , path: '/api/clients' });
+route.record({ method: 'GET' , path: '/api/clients/:id' });
+route.record({ method: 'POST' , path: '/api/clients' });
+route.record({ method: 'PUT' , path: '/api/clients/:id' });
+route.record({ method: 'DELETE' , path: '/api/clients/:id' });
 /* helper */
 
 

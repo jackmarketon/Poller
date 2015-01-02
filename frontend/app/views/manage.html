@@ -1,0 +1,92 @@
+<div id="manage">
+    <table class="table table-striped table-bordered table-hover" id="clients">
+        <thead>
+            <tr>
+                <td>Client Name</td>
+                <td>Item Count</td>
+                <td>Options</td>
+            </tr>
+        </thead>
+        <tbody ng-repeat="client in clientObj.all">
+            <tr>
+                <td>{{client.name}}</td>
+                <td>{{client.items.length}}</td>
+                <td>
+                    <a ng-click="clientObj.activeClient = client" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i></a>
+                    <a ng-click="clientObj.removeClient(client)" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="form-inline">
+        <div class="form-group">
+            <input type="text" placeholder="Client Name" class="form-control" id="clientName" ng-model="clientName">
+        </div>
+        <a ng-click="newClient()" class="btn btn-primary">Add Client</a>
+    </div>
+    <hr />
+
+    <h3>{{clientObj.activeClient.name}}</h3>
+    <table class="table table-striped table-bordered table-hover" id="items" ng-show="clientObj.activeClient">
+        <thead>
+            <td>Type</td>
+            <td>Description</td>
+            <td>Bids</td>
+            <td>Options</td>
+        </thead>
+        <tbody ng-repeat="item in clientObj.activeClient.items">
+            <tr>
+                <td>{{item.type}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.bids.length}}</td>
+                <td>
+                    <a ng-click="editItem(item); editItem = true" class="btn btn-default"><i class="glyphicon glyphicon-ok"> Select</i></a>
+                    <a class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <span class="clearfix">
+        <a ng-click="editItem = true" class="btn btn-default pull-right"><i class="glyphicon glyphicon-plus"></i> Add Feature</a>
+    </span>
+
+    <div class="form-horizontal" ng-show="editItem">
+        <div class="form-group">
+            <label for="itemType" class="col-sm-2 control-label">Type</label>
+            <div class="col-sm-4">
+                <select id="itemType" class="form-control" ng-options="t as t for t in types" ng-model="item.type">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="itemDescription" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-5">
+                <textarea id="itemDescription" rows="5" class="form-control" ng-model="item.description"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="itemStart" class="col-sm-2 control-label">Start Bidding</label>
+            <div class="col-sm-3">
+                <input id="itemStart" type="datetime-local" class="form-control" ng-model="item.startBidding">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="itemEnd" class="col-sm-2 control-label">End Bidding</label>
+            <div class="col-sm-3">
+                <input id="itemEnd" type="datetime-local" class="form-control" ng-model="item.endBidding">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="keywords" class="col-sm-2 control-label">Keywords</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" ng-model="item.keywords">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a ng-click="saveItem(); editItem = false" class="btn btn-default">Save Item</a>
+                <a ng-click="item = {}; editItem = false" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 var parse = require('co-body'),
     db = require('../config/db'),
     wrap = require('co-monk'),
-    Client = wrap(db.get('client'));
+    Clients = wrap(db.get('client'));
 
 module.exports = function(app, route) {
 
