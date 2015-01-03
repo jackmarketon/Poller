@@ -1,0 +1,67 @@
+<div id="bid">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="clients" class="col-sm-2 control-label">Select Client</label>
+            <div class="col-sm-4">
+                <select id="clients" class="form-control" ng-options="client.name for client in clientObj.all" ng-model="clientObj.activeClient"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>Type</td>
+                        <td>Keywords</td>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="item in clientObj.activeClient.items">
+                    <tr ng-class="{'info':item == activeItem,'':item != activeItem}" ng-click="setActiveItem(item)">
+                        <td>{{item.type}}</td>
+                        <td>{{item.keywoards}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6" ng-show="submitted">Thank you for submitting a bid!</div>
+        <div ng-hide="submitted">
+            <div class="col-sm-6" ng-show="activeItem">
+                <div class="form-horizontal row">
+                    <div class="col-sm-12">
+                        <div class="well">
+                        <p>Type: {{activeItem.type}}</p>
+                        <p>Description: {{activeItem.description}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bidName" class="col-sm-4 control-label">Bidder Name</label>
+                        <div class="col-sm-6">
+                            <input type="text" id="bidName" class="form-control" ng-model="bid.user">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bidAmount" class="col-sm-4 control-label">Bid Amount</label>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="text" id="bidAmount" class="form-control" ng-model="bid.amount" placeholder="000">
+                                <span class="input-group-addon">Hours</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bidDesc" class="col-sm-4 control-label">Bid Description</label>
+                        <div class="col-sm-8">
+                            <textarea id="bidDesc" cols="30" rows="10" class="form-control" ng-model="bid.description" placeholder="Optional bid information, reasoning, questions, comments, etc"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="bid.amount">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <a ng-click="submitBid()" class="btn btn-default">Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

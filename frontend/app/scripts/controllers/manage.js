@@ -8,7 +8,9 @@
  * Controller of the frontendApp
  */
 angular.module('frontendApp')
-  .controller('ManageCtrl', function ($scope, clientObj) {
+  .controller('ManageCtrl', function ($scope, $route, clientObj) {
+
+    $scope.$route = $route;
 
     $scope.clientObj = clientObj;
 
@@ -26,8 +28,21 @@ angular.module('frontendApp')
         'interactive',
     ];
 
+    $scope.activateClient = function(client) {
+        $scope.clientObj.activeClient = client;
+        $scope.item = {};
+        $scope.editItem = false;
+    };
+
     $scope.newClient = function() {
         $scope.clientObj.newClient($scope.clientName);
+        $scope.item = {};
+        $scope.editItem = false;
+    };
+
+    $scope.activateItem = function(item) {
+        $scope.item = item;
+        $scope.editItem = true;
     };
 
     $scope.saveItem = function() {

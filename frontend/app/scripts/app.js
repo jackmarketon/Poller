@@ -28,6 +28,14 @@ angular
         templateUrl: 'views/manage.html',
         controller: 'ManageCtrl'
       })
+      .when('/bid', {
+        templateUrl: 'views/bid.html',
+        controller: 'BidCtrl'
+      })
+      .when('/review', {
+        templateUrl: 'views/review.html',
+        controller: 'ReviewCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
