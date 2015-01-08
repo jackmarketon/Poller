@@ -13,10 +13,12 @@ angular.module('frontendApp')
     $scope.clientObj = clientObj;
 
     $scope.submitted = false;
+    $scope.bid = {};
 
     $scope.setActiveItem = function(item) {
         $scope.activeItem = item;
         $scope.submitted = false;
+        $scope.bid = {};
     };
 
     $scope.submitBid = function() {
@@ -27,6 +29,7 @@ angular.module('frontendApp')
         $scope.clientObj.saveClient();
 
         $scope.submitted = true;
+        $scope.bid = {};
     };
 
   });

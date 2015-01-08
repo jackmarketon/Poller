@@ -1,0 +1,51 @@
+<div id="review">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="clients" class="col-sm-2 control-label">Select Client</label>
+            <div class="col-sm-4">
+                <select id="clients" class="form-control" ng-options="client.name for client in clientObj.all" ng-model="clientObj.activeClient"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="clientObj.activeClient">
+        <div class="col-sm-6">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>Type</td>
+                        <td>Keywords</td>
+                        <td>Is Active?</td>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="item in clientObj.activeClient.items">
+                    <tr ng-class="{'info':item == activeItem,'':item != activeItem}" ng-click="setActiveItem(item)">
+                        <td>{{item.type}}</td>
+                        <td>{{item.keywoards}}</td>
+                        <td>{{item.isActive}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <div ng-show="activeItem && !activeItem.bids.length">
+                <h1>No Bids</h1>
+            </div>
+            <table class="table table-bordered" ng-show="activeItem && activeItem.bids.length">
+                <thead>
+                    <tr>
+                        <td>Amount</td>
+                        <td>Description</td>
+                        <td>Name</td>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="bid in activeItem.bids | orderBy:'amount'">
+                    <tr>
+                        <td>{{bid.amount}}</td>
+                        <td>{{bid.description}}</td>
+                        <td>{{bid.user}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
