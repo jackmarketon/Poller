@@ -1,50 +1,73 @@
-'use strict';
+(function() {
+  'use strict';
 
-/**
- * @ngdoc service
- * @name frontendApp.clientobj
- * @description
- * # clientobj
- * Service in the frontendApp.
- */
-angular.module('frontendApp')
-  .service('clientObj', function (Restangular) {
+  /**
+   * @ngdoc service
+   * @name frontendApp.clientobj
+   * @description
+   * # clientobj
+   * Service in the frontendApp.
+   */
+  angular
+    .module('frontendApp')
+    .service('clientObj', clientObj);
 
-    var clientObj = {};
+  clientObj.$inject = ['$log', 'Restangular'];
 
-    clientObj.all = Restangular.all('clients').getList().$object;
+  function clientObj($log, Restangular) {
 
-    clientObj.refreshAll = function() {
-        clientObj.all = Restangular.all('clients').getList().$object;
+    return {
+      activeClient: {},
+      all: Restangular.all('clients').getList().$object,
+      refreshAll: refreshAll,
+      newClient: newClient,
+      removeClient: removeClient,
+      saveClient: saveClient
     };
 
-    clientObj.newClient = function(name) {
-        var newClient = {
+    function refreshAll() {
+      this.all = Restangular.all('clients').getList().$object;
+    }
+
+    function newClient(name) {
+      var client = {
             'name': name,
             'items': []
-        };
+          };
 
-        Restangular.all('clients').post(newClient).then(function(client) {
-            clientObj.activeClient = client;
-            clientObj.refreshAll();
-        });
-    };
+      return Restangular
+        .all('clients')
+        .post(client)
+        .then(newClientComplete)
+        .catch(newClientFailed);
 
-    clientObj.saveClient = function() {
-        clientObj.activeClient.put();
-    };
+      function newClientComplete(response) {
+        this.activeClient = response;
+        this.refreshAll();
+      }
 
-    clientObj.deleteClient = function() {
-        clientObj.activeClient.remove().then(function() {
-            clientObj.refreshAll();
-        });
-    };
+      function newClientFailed(error) {
+        $log.error('Create new client failed. ' + error.data);
+      }
+    }
 
-    clientObj.removeClient = function(client) {
-        client.remove().then(function() {
-            clientObj.refreshAll();
-        });
-    };
+    function saveClient() {
+      this.activeClient.put();
+    }
 
-    return clientObj;
-  });
+    function removeClient(client) {
+      return client
+        .remove()
+        .then(removeClientComplete)
+        .catch(removeClientFailed);
+
+      function removeClientComplete() {
+        this.refreshAll();
+      }
+
+      function removeClientFailed(error) {
+        $log.error('Remove new client failed. ' + error.data);
+      }
+    }
+  }
+})();

@@ -7,69 +7,69 @@
                 <td>Options</td>
             </tr>
         </thead>
-        <tbody ng-repeat="client in clientObj.all">
+        <tbody ng-repeat="client in vm.clientObj.all">
             <tr>
                 <td>{{client.name}}</td>
                 <td>{{client.items.length}}</td>
                 <td>
-                    <a ng-click="activateClient(client)" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i></a>
-                    <a ng-click="clientObj.removeClient(client)" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                    <a ng-click="vm.activateClient(client)" class="btn btn-default">Select</a>
+                    <a ng-click="vm.clientObj.removeClient(client)" class="btn btn-default">Delete</a>
                 </td>
             </tr>
         </tbody>
     </table>
     <div class="form-inline">
         <div class="form-group">
-            <input type="text" placeholder="Client Name" class="form-control" id="clientName" ng-model="clientName">
+            <input type="text" placeholder="Client Name" class="form-control" id="clientName" ng-model="vm.clientName">
         </div>
-        <a ng-click="newClient()" class="btn btn-primary">Add Client</a>
+        <a ng-click="vm.newClient()" class="btn btn-primary">Add Client</a>
     </div>
     <hr />
 
-    <div ng-show="clientObj.activeClient">
-        <h3>{{clientObj.activeClient.name}}</h3>
-        <table class="table table-striped table-bordered table-hover" id="items" ng-show="clientObj.activeClient">
+    <div ng-show="vm.clientObj.activeClient">
+        <h3>{{vm.clientObj.activeClient.name}}</h3>
+        <table class="table table-striped table-bordered table-hover" id="items" ng-show="vm.clientObj.activeClient">
             <thead>
                 <td>Type</td>
                 <td>Description</td>
                 <td>Bids</td>
                 <td>Options</td>
             </thead>
-            <tbody ng-repeat="item in clientObj.activeClient.items">
+            <tbody ng-repeat="item in vm.clientObj.activeClient.items">
                 <tr>
                     <td>{{item.type}}</td>
                     <td>{{item.description}}</td>
                     <td>{{item.bids.length}}</td>
                     <td>
-                        <a ng-click="activateItem(item)" class="btn btn-default">Select</a>
-                        <a class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                        <a ng-click="vm.activateItem(item)" class="btn btn-default">Select</a>
+                        <a class="btn btn-default">Delete</a>
                     </td>
                 </tr>
             </tbody>
         </table>
         <span class="clearfix">
-            <a ng-click="editItem = true" class="btn btn-default pull-right"><i class="glyphicon glyphicon-plus"></i> Add Item</a>
+            <a ng-click="vm.editItem = true" class="btn btn-default pull-right"><i class="glyphicon glyphicon-plus"></i> Add Item</a>
         </span>
 
-        <div class="form-horizontal" ng-show="editItem">
+        <div class="form-horizontal" ng-show="vm.editItem">
             <div class="form-group">
                 <label for="itemType" class="col-sm-2 control-label">Type</label>
                 <div class="col-sm-4">
-                    <select id="itemType" class="form-control" ng-options="t as t for t in types" ng-model="item.type">
+                    <select id="itemType" class="form-control" ng-options="t as t for t in types" ng-model="vm.item.type">
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <label for="itemDescription" class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-5">
-                    <textarea id="itemDescription" rows="5" class="form-control" ng-model="item.description"></textarea>
+                    <textarea id="itemDescription" rows="5" class="form-control" ng-model="vm.item.description"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" id="isActive" ng-model="item.isActive"> Activate Item's Bidding?
+                            <input type="checkbox" id="isActive" ng-model="vm.item.isActive"> Activate Item's Bidding?
                         </label>
                     </div>
                 </div>
@@ -90,13 +90,13 @@
             <div class="form-group">
                 <label for="keywords" class="col-sm-2 control-label">Keywords</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" ng-model="item.keywords">
+                    <input type="text" class="form-control" ng-model="vm.item.keywords">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <a ng-click="saveItem(); editItem = false" class="btn btn-default">Save Item</a>
-                    <a ng-click="item = {}; editItem = false" class="btn btn-danger">Cancel</a>
+                    <a ng-click="vm.saveItem(); vm.editItem = false" class="btn btn-default">Save Item</a>
+                    <a ng-click="vm.item = {}; vm.editItem = false" class="btn btn-danger">Cancel</a>
                 </div>
             </div>
         </div>

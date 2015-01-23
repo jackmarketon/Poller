@@ -1,35 +1,45 @@
-'use strict';
+(function() {
+  'use strict';
 
-/**
- * @ngdoc function
- * @name frontendApp.controller:BidCtrl
- * @description
- * # BidCtrl
- * Controller of the frontendApp
- */
-angular.module('frontendApp')
-  .controller('BidCtrl', function ($scope, clientObj) {
+  /**
+   * @ngdoc function
+   * @name frontendApp.controller:BidCtrl
+   * @description
+   * # BidCtrl
+   * Controller of the frontendApp
+   */
+  angular
+    .module('frontendApp')
+    .controller('BidCtrl', BidCtrl);
 
-    $scope.clientObj = clientObj;
+  BidCtrl.$inject = ['clientObj'];
 
-    $scope.submitted = false;
-    $scope.bid = {};
+  function BidCtrl(clientObj) {
+    var vm = this;
 
-    $scope.setActiveItem = function(item) {
-        $scope.activeItem = item;
-        $scope.submitted = false;
-        $scope.bid = {};
-    };
+    vm.bid = {};
+    vm.clientObj = clientObj;
+    vm.submitted = false;
+    vm.setActiveItem = setActiveItem;
 
-    $scope.submitBid = function() {
-        if(!$scope.activeItem.bids){
-            $scope.activeItem.bids = [];
-        }
-        $scope.activeItem.bids.push($scope.bid);
-        $scope.clientObj.saveClient();
+    vm.submitBid = submitBid;
 
-        $scope.submitted = true;
-        $scope.bid = {};
-    };
+    function setActiveItem(item) {
+      vm.activeItem = item;
+      vm.submitted = false;
+      vm.bid = {};
+    }
 
-  });
+    function submitBid() {
+      if(!vm.activeItem.bids){
+        vm.activeItem.bids = [];
+      }
+      vm.activeItem.bids.push(vm.bid);
+      vm.clientObj.saveClient();
+
+      vm.submitted = true;
+      vm.bid = {};
+    }
+  }
+
+})();

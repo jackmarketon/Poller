@@ -1,22 +1,30 @@
-'use strict';
+(function() {
+  'use strict';
 
-/**
- * @ngdoc function
- * @name frontendApp.controller:ReviewCtrl
- * @description
- * # ReviewCtrl
- * Controller of the frontendApp
- */
-angular.module('frontendApp')
-  .controller('ReviewCtrl', function ($scope, clientObj) {
+  /**
+   * @ngdoc function
+   * @name frontendApp.controller:ReviewCtrl
+   * @description
+   * # ReviewCtrl
+   * Controller of the frontendApp
+   */
+  angular
+    .module('frontendApp')
+    .controller('ReviewCtrl', ReviewCtrl);
 
-    $scope.clientObj = clientObj;
+  ReviewCtrl.$inject = ['clientObj'];
 
-    $scope.submitted = false;
+  function ReviewCtrl(clientObj) {
+    var vm = this;
 
-    $scope.setActiveItem = function(item) {
-        $scope.activeItem = item;
-        $scope.submitted = false;
-    };
+    vm.clientObj = clientObj;
+    vm.setActiveItem = setActiveItem;
+    vm.submitted = false;
 
-  });
+    function setActiveItem(item) {
+        vm.activeItem = item;
+        vm.submitted = false;
+    }
+
+  }
+})();

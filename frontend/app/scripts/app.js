@@ -1,40 +1,49 @@
-'use strict';
+(function() {
+  'use strict';
 
-/**
- * @ngdoc overview
- * @name frontendApp
- * @description
- * # frontendApp
- *
- * Main module of the application.
- */
-angular
-  .module('frontendApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch',
-    'restangular'
-  ])
-  .config(function ($routeProvider, RestangularProvider) {
+  /**
+   * @ngdoc overview
+   * @name frontendApp
+   * @description
+   * # frontendApp
+   *
+   * Main module of the application.
+   */
+  angular
+    .module('frontendApp', [
+      'ngAnimate',
+      'ngCookies',
+      'ngResource',
+      'ngRoute',
+      'ngSanitize',
+      'ngTouch',
+      'restangular'
+    ])
+    .config(config);
+
+  config.$inject = ['$routeProvider', 'RestangularProvider'];
+
+  function config($routeProvider, RestangularProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        controllerAs: 'vm'
       })
       .when('/manage', {
         templateUrl: 'views/manage.html',
-        controller: 'ManageCtrl'
+        controller: 'ManageCtrl',
+        controllerAs: 'vm'
       })
       .when('/bid', {
         templateUrl: 'views/bid.html',
-        controller: 'BidCtrl'
+        controller: 'BidCtrl',
+        controllerAs: 'vm'
       })
       .when('/review', {
         templateUrl: 'views/review.html',
-        controller: 'ReviewCtrl'
+        controller: 'ReviewCtrl',
+        controllerAs: 'vm'
       })
       .otherwise({
         redirectTo: '/'
@@ -50,4 +59,5 @@ angular
       .setRestangularFields({
         id: '_id'
       });
-  });
+  }
+})();

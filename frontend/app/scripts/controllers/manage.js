@@ -1,54 +1,63 @@
-'use strict';
+(function() {
+  'use strict';
 
-/**
- * @ngdoc function
- * @name frontendApp.controller:ManageCtrl
- * @description
- * # ManageCtrl
- * Controller of the frontendApp
- */
-angular.module('frontendApp')
-  .controller('ManageCtrl', function ($scope, $route, clientObj) {
+  /**
+   * @ngdoc function
+   * @name frontendApp.controller:ManageCtrl
+   * @description
+   * # ManageCtrl
+   * Controller of the frontendApp
+   */
+  angular
+    .module('frontendApp')
+    .controller('ManageCtrl', ManageCtrl);
 
-    $scope.$route = $route;
+  ManageCtrl.$inject = ['$route', 'clientObj'];
 
-    $scope.clientObj = clientObj;
+  function ManageCtrl($route, clientObj) {
+    var vm = this;
 
-    $scope.clientObj.refreshAll();
-
-    $scope.item = {};
-
-    $scope.editItem = false;
-
-    $scope.types = [
-        'feature',
-        'bugfix',
-        'design',
-        'ux review',
-        'interactive',
+    vm.activateClient = activateClient;
+    vm.activateItem = activateItem;
+    vm.clientObj = clientObj;
+    vm.editItem = false;
+    vm.item = {};
+    vm.newClient = newClient;
+    vm.types = [
+      'feature',
+      'bugfix',
+      'design',
+      'ux review',
+      'interactive',
     ];
+    vm.saveItem = saveItem;
+    vm.$route = $route;
 
-    $scope.activateClient = function(client) {
-        $scope.clientObj.activeClient = client;
-        $scope.item = {};
-        $scope.editItem = false;
-    };
+    vm.clientObj.refreshAll();
 
-    $scope.newClient = function() {
-        $scope.clientObj.newClient($scope.clientName);
-        $scope.item = {};
-        $scope.editItem = false;
-    };
+    function activateClient(client) {
+      console.log(client);
+      vm.clientObj.activeClient = client;
+      vm.item = {};
+      vm.editItem = false;
+    }
 
-    $scope.activateItem = function(item) {
-        $scope.item = item;
-        $scope.editItem = true;
-    };
+    function newClient() {
+      vm.clientObj.newClient(vm.clientName);
+      vm.item = {};
+      vm.editItem = false;
+    }
 
-    $scope.saveItem = function() {
-        $scope.clientObj.activeClient.items.push($scope.item);
-        $scope.clientObj.saveClient();
-        $scope.item = {};
-    };
+    function activateItem(item) {
+      vm.item = item;
+      vm.editItem = true;
+    }
 
-  });
+    function saveItem() {
+      vm.clientObj.activeClient.items.push(vm.item);
+      vm.clientObj.saveClient();
+      vm.item = {};
+    }
+
+  }
+})();
